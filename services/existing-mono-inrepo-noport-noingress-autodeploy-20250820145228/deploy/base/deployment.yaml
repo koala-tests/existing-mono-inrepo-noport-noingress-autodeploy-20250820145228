@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: existing-mono-inrepo-noport-noingress-autodeploy-20250820145228
+  labels:
+    app: existing-mono-inrepo-noport-noingress-autodeploy-20250820145228
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: existing-mono-inrepo-noport-noingress-autodeploy-20250820145228
+  template:
+    spec:
+      imagePullSecrets:
+      - name: ghcr-image-pull-secret
+      containers:
+      - name: existing-mono-inrepo-noport-noingress-autodeploy-20250820145228
+        image: ghcr.io/existing-mono-inrepo-noport-noingress-autodeploy-20250820145228:latest
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 2048Mi
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: existing-mono-inrepo-noport-noingress-autodeploy-20250820145228-container-vars
+    metadata:
+      labels:
+        app: existing-mono-inrepo-noport-noingress-autodeploy-20250820145228
